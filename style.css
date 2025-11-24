@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.player-container {
+    display: flex;
+    justify-content: center;
+}
