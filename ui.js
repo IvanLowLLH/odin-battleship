@@ -109,6 +109,7 @@ function setupRandomiseBtn() {
 }
 
 function updateEntireUserBoard() {
+    const randomiseBtn = document.getElementById("randomise-player-btn");
     gameLogic.randomiseUserPlayerGameboard();
     const playergameBoard = gameLogic.getUserPlayer().gameboard.getBoard();
     playergameBoard.forEach((row, rowIdx) => {
@@ -118,6 +119,7 @@ function updateEntireUserBoard() {
             }
         })
     })
+    randomiseBtn.disabled = true;
 }
 
 export function loadUI() {
