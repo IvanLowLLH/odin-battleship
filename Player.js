@@ -7,7 +7,7 @@ class Player {
         this.playedCoors = new Map();
     }
 
-    play(coor) {
+    checkPlay(coor) {
         const [rowIndex, colIndex] = coor;
         if (this.playedCoors.has(rowIndex)) {
             if (this.playedCoors.get(rowIndex).includes(colIndex)) {
