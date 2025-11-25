@@ -1,4 +1,4 @@
-import Ship from "./Ship";
+import Ship from "./Ship.js";
 
 class Gameboard {
     constructor() {
@@ -48,6 +48,10 @@ class Gameboard {
         } else {
             return false;
         }
+    }
+
+    getBoard() {
+        return this.board;
     }
 }
 

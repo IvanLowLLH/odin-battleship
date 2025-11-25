@@ -1,7 +1,7 @@
-import Player from "./Player";
+import Player from "./Player.js";
 
-const userPlayer = new Player(type = "user");
-const cpuPlayer = new Player(type = "cpu");
+const userPlayer = new Player("user");
+const cpuPlayer = new Player("cpu");
 
 let player = userPlayer;
 
@@ -22,11 +22,11 @@ export function initialisePlayerGameboard() {
     userPlayer.gameboard.addShip([[4,1], [5,1], [6,1], [7,1], [8,1],]);
 
     // For CPU
-    cpuPlayer.gameboard.addShip([0,3], [0,4]);
-    cpuPlayer.gameboard.addShip([1,7], [2,7], [3,7]);
-    cpuPlayer.gameboard.addShip([4,1], [5,1], [6,1]);
-    cpuPlayer.gameboard.addShip([9,0], [9,1], [9,2], [9,3]);
-    cpuPlayer.gameboard.addShip([7,4], [7,5], [7,6], [7,7], [7,8]);
+    cpuPlayer.gameboard.addShip([[0,3], [0,4]]);
+    cpuPlayer.gameboard.addShip([[1,7], [2,7], [3,7]]);
+    cpuPlayer.gameboard.addShip([[4,1], [5,1], [6,1]]);
+    cpuPlayer.gameboard.addShip([[9,0], [9,1], [9,2], [9,3]]);
+    cpuPlayer.gameboard.addShip([[7,4], [7,5], [7,6], [7,7], [7,8]]);
 }
 
 export function getUserPlayer() {
