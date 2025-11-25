@@ -39,3 +39,11 @@
 .cell:hover {
     filter: brightness(0.8);
 }
+
+.cell.hit {
+    background-color: red;
+}
+
+.cell.miss {
+    background-color: grey;
+}
