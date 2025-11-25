@@ -55,6 +55,12 @@ function clickBoard(event) {
         return
     }
     updateBoard("enemy", hitResult, selectedRow, selectedCol);
+    // Check win condition
+    if (gameLogic.getCPUPlayer().gameboard.allShipsSunk()) {
+        turnDisplay.textContent = "You Win!";
+        enemyBoard.removeEventListener("click", clickBoard); // Stop game
+        return;
+    }
     cpuTurn();
 }
 
@@ -64,6 +70,11 @@ async function cpuTurn() {
     await sleep(2000);
     const [cpuHitResult, cpuSelectedRow, cpuselectedCol] = gameLogic.cpuPlayRound();
     updateBoard("user", cpuHitResult, cpuSelectedRow, cpuselectedCol);
+    // Check win condition
+    if (gameLogic.getUserPlayer().gameboard.allShipsSunk()) {
+        turnDisplay.textContent = "CPU Wins!";
+        return; 
+    }
     cpuTurnNow = false;
     updateTurnMessage();
 }
