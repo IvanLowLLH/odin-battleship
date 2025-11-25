@@ -11,5 +11,31 @@
 
 .player-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.board {
+    display: grid;
+    height: 500px;
+    width: 500px;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    border: 1px solid black;
+}
+
+.cell {
+    font-size: 32px;
+    filter: brightness(1);
+    background-color: white;
+    border: 0.5px solid black;
+}
+
+.cell.ship {
+    background-color: lightblue;
+}
+
+.cell:hover {
+    filter: brightness(0.8);
 }
