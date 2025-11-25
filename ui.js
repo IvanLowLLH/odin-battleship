@@ -2,6 +2,7 @@ import * as gameLogic from "./gameLogic.js"
 
 const userBoard = document.getElementById("user-board");
 const enemyBoard = document.getElementById("enemy-board");
+const turnDisplay = document.getElementById("turn-message");
 let cpuTurnNow = false;
 
 function renderGameboard() {
@@ -55,10 +56,12 @@ function clickBoard(event) {
 
 async function cpuTurn() {
     cpuTurnNow = true;
+    updateTurnMessage();
     await sleep(2000);
     const [cpuHitResult, cpuSelectedRow, cpuselectedCol] = gameLogic.cpuPlayRound();
     updateBoard("user", cpuHitResult, cpuSelectedRow, cpuselectedCol);
     cpuTurnNow = false;
+    updateTurnMessage();
 }
 
 function updateBoard(boardName, hitResult, selectedRow, selectedCol) {
@@ -79,7 +82,16 @@ function setupEnemyBoardEventListeners() {
     enemyBoard.addEventListener("click", clickBoard);
 }
 
+function updateTurnMessage() {
+    if (!cpuTurnNow) {
+        turnDisplay.textContent = "Your turn now!"
+    } else {
+        turnDisplay.textContent = "Computer is thinking..."
+    }
+}
+
 export function loadUI() {
     renderGameboard();
+    updateTurnMessage();
     setupEnemyBoardEventListeners()
 }

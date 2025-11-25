@@ -9,6 +9,11 @@
     gap: 100px;
 }
 
+.turn-display {
+    display: flex;
+    justify-content: center;
+}
+
 .player-container {
     display: flex;
     flex-direction: column;
