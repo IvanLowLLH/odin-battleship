@@ -4,21 +4,17 @@ class Player {
     constructor(type) {
         this.type = type;
         this.gameboard = new Gameboard();
-        this.playedCoors = new Map();
+        this.playedMoves = new Set();
     }
 
     checkPlay(coor) {
         const [rowIndex, colIndex] = coor;
-        if (this.playedCoors.has(rowIndex)) {
-            if (this.playedCoors.get(rowIndex).includes(colIndex)) {
-                return false;
-            } else {
-                this.playedCoors.get(rowIndex).push(colIndex);
-                return true;
-            }
+        const key = `${rowIndex},${colIndex}`;
+
+        if (this.playedMoves.has(key)) {
+            return false;
         } else {
-            this.playedCoors.set(rowIndex, []);
-            this.playedCoors.get(rowIndex).push(colIndex);
+            this.playedMoves.add(key);
             return true;
         }
     }
