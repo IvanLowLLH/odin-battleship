@@ -41,3 +41,16 @@ export function userPlayRound(selectedRow, selectedCol) {
     const hitResult = cpuPlayer.gameboard.receiveAttack([selectedCol, selectedRow]);
     return hitResult;
 }
+
+export function cpuPlayRound() {
+    let validPlay = false;
+    let randomRow = 0;
+    let randomCol = 0;
+    while (!validPlay) {
+        randomRow = Math.floor(Math.random() * 10);
+        randomCol = Math.floor(Math.random() * 10);
+        validPlay = cpuPlayer.checkPlay([randomRow, randomCol]);
+    }
+    const hitResult = userPlayer.gameboard.receiveAttack([randomCol, randomRow]);
+    return [hitResult, randomRow, randomCol];
+}
