@@ -22,15 +22,15 @@ class Gameboard {
 
     receiveAttack(coor) {
         const cell = this.board[coor[1]][coor[0]];
-        if (cell === "m" || cell === "h") { // Already missed or hit so invalid
+        if (cell === "MISS" || cell === "HIT") { // Already missed or hit so invalid
             return null;
         }
         if (cell === null) { // Hit water
-            this.board[coor[1]][coor[0]] = "m";
+            this.board[coor[1]][coor[0]] = "MISS";
             return false
         } else { // Hit ship
             cell.ship.hit();
-            this.board[coor[1]][coor[0]] = "h";
+            this.board[coor[1]][coor[0]] = "HIT";
             return true
         }
     }
