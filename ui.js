@@ -3,6 +3,10 @@ import * as gameLogic from "./gameLogic.js"
 const userBoard = document.getElementById("user-board");
 const enemyBoard = document.getElementById("enemy-board");
 const turnDisplay = document.getElementById("turn-message");
+
+const userShipLeft = document.getElementById("user-ships");
+const cpuShipLeft = document.getElementById("cpu-ships");
+
 let cpuTurnNow = false;
 
 const userSquares = [];
@@ -38,6 +42,15 @@ function renderGameboard() {
 
     createGrid(userBoard, userSquares, true);
     createGrid(enemyBoard, enemySquares, false);
+    updateNumShips();
+}
+
+function updateNumShips() {
+    const numUserShipAlive = gameLogic.getUserPlayer().gameboard.numShipsAlive();
+    userShipLeft.textContent = parseInt(numUserShipAlive);
+
+    const numCPUShipAlive = gameLogic.getCPUPlayer().gameboard.numShipsAlive();
+    cpuShipLeft.textContent = parseInt(numCPUShipAlive);
 }
 
 function sleep(ms) {
@@ -56,6 +69,7 @@ function clickBoard(event) {
         return
     }
     updateBoard("enemy", hitResult, selectedRow, selectedCol);
+    updateNumShips();
     // Check win condition
     if (gameLogic.getCPUPlayer().gameboard.allShipsSunk()) {
         turnDisplay.textContent = "You Win!";
@@ -71,6 +85,7 @@ async function cpuTurn() {
     await sleep(CPU_THINK_TIME);
     const [cpuHitResult, cpuSelectedRow, cpuselectedCol] = gameLogic.cpuPlayRound();
     updateBoard("user", cpuHitResult, cpuSelectedRow, cpuselectedCol);
+    updateNumShips();
     // Check win condition
     if (gameLogic.getUserPlayer().gameboard.allShipsSunk()) {
         turnDisplay.textContent = "CPU Wins!";
@@ -120,6 +135,7 @@ function updateEntireUserBoard() {
         })
     })
     randomiseBtn.disabled = true;
+    updateNumShips();
 }
 
 export function loadUI() {

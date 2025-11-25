@@ -50,6 +50,19 @@ class Gameboard {
         }
     }
 
+    numShipsAlive() {
+        if (this.ships.length == 0) {
+            return 0;
+        }
+        let shipAlive = 0
+        this.ships.forEach((ship) => {
+            if (!ship.isSunk()) {
+                shipAlive++;
+            }
+        })
+        return shipAlive;
+    }
+
     getBoard() {
         return this.board;
     }
