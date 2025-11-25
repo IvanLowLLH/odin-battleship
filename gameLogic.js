@@ -32,6 +32,10 @@ export function initialisePlayerGameboard() {
     randomizedPlacement(cpuPlayer.gameboard);
 }
 
+export function randomiseUserPlayerGameboard() {
+    randomizedPlacement(userPlayer.gameboard);
+}
+
 function checkSquare(set, rowIndex, colIndex) {
     if (rowIndex > 9 || rowIndex < 0 || colIndex > 9 || colIndex < 0) {
         return false;

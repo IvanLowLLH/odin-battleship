@@ -102,8 +102,26 @@ function updateTurnMessage() {
     }
 }
 
+function setupRandomiseBtn() {
+    const randomiseBtn = document.getElementById("randomise-player-btn");
+    randomiseBtn.addEventListener("click", updateEntireUserBoard);
+}
+
+function updateEntireUserBoard() {
+    gameLogic.randomiseUserPlayerGameboard();
+    const playergameBoard = gameLogic.getUserPlayer().gameboard.getBoard();
+    playergameBoard.forEach((row, rowIdx) => {
+        row.forEach((cell, colIdx) => {
+            if (typeof cell === "object" && cell !== null) {
+                userSquares[rowIdx][colIdx].classList.add("ship");
+            }
+        })
+    })
+}
+
 export function loadUI() {
     renderGameboard();
+    setupRandomiseBtn()
     updateTurnMessage();
     setupEnemyBoardEventListeners()
 }
