@@ -7,6 +7,7 @@ let cpuTurnNow = false;
 
 const userSquares = [];
 const enemySquares = [];
+const CPU_THINK_TIME = 1000;
 
 function renderGameboard() {
     // Render user player board;
@@ -67,7 +68,7 @@ function clickBoard(event) {
 async function cpuTurn() {
     cpuTurnNow = true;
     updateTurnMessage();
-    await sleep(2000);
+    await sleep(CPU_THINK_TIME);
     const [cpuHitResult, cpuSelectedRow, cpuselectedCol] = gameLogic.cpuPlayRound();
     updateBoard("user", cpuHitResult, cpuSelectedRow, cpuselectedCol);
     // Check win condition
