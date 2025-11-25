@@ -33,6 +33,34 @@ function renderGameboard() {
     })
 }
 
+function clickBoard(event) {
+    const selectedRow = event.target.dataset.rowIndex;
+    const selectedCol = event.target.dataset.colIndex;
+
+    if (!selectedRow || !selectedCol) {
+        return
+    }
+    const hitResult = gameLogic.userPlayRound(selectedRow, selectedCol);
+    if (hitResult === null) {  // invalid hit
+        return
+    }
+    updateEnemyBoard(hitResult, selectedRow, selectedCol);
+}
+
+function updateEnemyBoard(hitResult, selectedRow, selectedCol) {
+    const selectedButton = enemyBoard.querySelector(`[data-row-index="${selectedRow}"][data-col-index="${selectedCol}"]`);
+    if (hitResult) {
+        selectedButton.classList.add("hit");
+    } else {
+        selectedButton.classList.add("miss");
+    }
+}
+
+function setupEnemyBoardEventListeners() {
+    enemyBoard.addEventListener("click", clickBoard);
+}
+
 export function loadUI() {
     renderGameboard();
+    setupEnemyBoardEventListeners()
 }

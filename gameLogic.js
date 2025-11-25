@@ -36,3 +36,8 @@ export function getUserPlayer() {
 export function getCPUPlayer() {
     return cpuPlayer;
 }
+
+export function userPlayRound(selectedRow, selectedCol) {
+    const hitResult = cpuPlayer.gameboard.receiveAttack([selectedCol, selectedRow]);
+    return hitResult;
+}
