@@ -16,21 +16,21 @@ class Gameboard {
         this.ships.push(ship);
         const shipIndex = this.ships.length - 1;
         coor_array.forEach((coor) => {
-            this.board[coor[1]][coor[0]] = {ship, index: shipIndex};
+            this.board[coor[0]][coor[1]] = {ship, index: shipIndex};
         })
     }
 
     receiveAttack(coor) {
-        const cell = this.board[coor[1]][coor[0]];
+        const cell = this.board[coor[0]][coor[1]];
         if (cell === "MISS" || cell === "HIT") { // Already missed or hit so invalid
             return null;
         }
         if (cell === null) { // Hit water
-            this.board[coor[1]][coor[0]] = "MISS";
+            this.board[coor[0]][coor[1]] = "MISS";
             return false
         } else { // Hit ship
             cell.ship.hit();
-            this.board[coor[1]][coor[0]] = "HIT";
+            this.board[coor[0]][coor[1]] = "HIT";
             return true
         }
     }
