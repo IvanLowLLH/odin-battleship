@@ -128,7 +128,7 @@ export function getCPUPlayer() {
 }
 
 export function userPlayRound(selectedRow, selectedCol) {
-    const hitResult = cpuPlayer.gameboard.receiveAttack([selectedCol, selectedRow]);
+    const hitResult = cpuPlayer.gameboard.receiveAttack([selectedRow, selectedCol]);
     return hitResult;
 }
 
@@ -141,6 +141,6 @@ export function cpuPlayRound() {
         randomCol = Math.floor(Math.random() * 10);
         validPlay = cpuPlayer.checkPlay([randomRow, randomCol]);
     }
-    const hitResult = userPlayer.gameboard.receiveAttack([randomCol, randomRow]);
+    const hitResult = userPlayer.gameboard.receiveAttack([randomRow, randomCol]);
     return [hitResult, randomRow, randomCol];
 }
