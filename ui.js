@@ -14,7 +14,7 @@ function renderGameboard() {
             cellButton.classList.add("cell");
             cellButton.dataset.rowIndex = rowIndex;
             cellButton.dataset.colIndex = colIndex;
-            if (typeof cell === "object") {  // Cell contains ship
+            if (typeof cell === "object" && cell !== null) {  // Cell contains ship
                 cellButton.classList.add("ship");
             }
             userBoard.appendChild(cellButton);
