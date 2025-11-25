@@ -33,6 +33,10 @@ function renderGameboard() {
     })
 }
 
+// function sleep(ms) {
+//     return new Promise(resolve => setTimeout(resolve, ms));
+// }
+
 function clickBoard(event) {
     const selectedRow = event.target.dataset.rowIndex;
     const selectedCol = event.target.dataset.colIndex;
@@ -44,11 +48,23 @@ function clickBoard(event) {
     if (hitResult === null) {  // invalid hit
         return
     }
-    updateEnemyBoard(hitResult, selectedRow, selectedCol);
+    updateBoard("enemy",hitResult, selectedRow, selectedCol);
+    cpuTurn();
 }
 
-function updateEnemyBoard(hitResult, selectedRow, selectedCol) {
-    const selectedButton = enemyBoard.querySelector(`[data-row-index="${selectedRow}"][data-col-index="${selectedCol}"]`);
+async function cpuTurn() {
+    // await sleep(3000);
+    const [cpuHitResult, cpuSelectedRow, cpuselectedCol] = gameLogic.cpuPlayRound();
+    updateBoard("user", cpuHitResult, cpuSelectedRow, cpuselectedCol);
+}
+
+function updateBoard(boardName, hitResult, selectedRow, selectedCol) {
+    let selectedButton = null;
+    if (boardName === "enemy") {
+        selectedButton = enemyBoard.querySelector(`[data-row-index="${selectedRow}"][data-col-index="${selectedCol}"]`);
+    } else {
+        selectedButton = userBoard.querySelector(`[data-row-index="${selectedRow}"][data-col-index="${selectedCol}"]`);
+    }
     if (hitResult) {
         selectedButton.classList.add("hit");
     } else {
