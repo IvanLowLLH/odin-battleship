@@ -53,3 +53,17 @@
 .cell.miss {
     background-color: grey;
 }
+
+.user-btns-container {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.placeholder-btn-space {
+    /* Set a height approximately equal to the button's rendered height. */
+    /* This ensures vertical alignment of the boards above it. */
+    height: 50px; /* A common button height, adjust as needed */
+    width: 100%; /* Take up space to maintain center alignment */
+}
