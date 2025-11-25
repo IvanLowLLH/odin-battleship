@@ -5,34 +5,38 @@ const enemyBoard = document.getElementById("enemy-board");
 const turnDisplay = document.getElementById("turn-message");
 let cpuTurnNow = false;
 
+const userSquares = [];
+const enemySquares = [];
+
 function renderGameboard() {
     // Render user player board;
     userBoard.textContent = "";
     const playergameBoard = gameLogic.getUserPlayer().gameboard.getBoard();
     
-    playergameBoard.forEach((row, rowIndex) => {
-        row.forEach((cell, colIndex) => {
-            const cellButton = document.createElement("button");
-            cellButton.classList.add("cell");
-            cellButton.dataset.rowIndex = rowIndex;
-            cellButton.dataset.colIndex = colIndex;
-            if (typeof cell === "object" && cell !== null) {  // Cell contains ship
-                cellButton.classList.add("ship");
-            }
-            userBoard.appendChild(cellButton);
-        })
-    })
+    // Helper to generate grid and store references
+    const createGrid = (boardElement, storageArray, isUser) => {
+        playergameBoard.forEach((row, rowIndex) => {
+            const rowButtons = [];
+            row.forEach((cell, colIndex) => {
+                const btn = document.createElement("button");
+                btn.classList.add("cell");
+                btn.dataset.rowIndex = rowIndex;
+                btn.dataset.colIndex = colIndex;
+                
+                // Only show ships for user
+                if (isUser && typeof cell === "object" && cell !== null) {
+                    btn.classList.add("ship");
+                }
+                
+                boardElement.appendChild(btn);
+                rowButtons.push(btn);
+            });
+            storageArray.push(rowButtons);
+        });
+    };
 
-    // Render enemy board
-    playergameBoard.forEach((row, rowIndex) => {
-        row.forEach((cell, colIndex) => {
-            const cellButton = document.createElement("button");
-            cellButton.classList.add("cell");
-            cellButton.dataset.rowIndex = rowIndex;
-            cellButton.dataset.colIndex = colIndex;
-            enemyBoard.appendChild(cellButton);
-        })
-    })
+    createGrid(userBoard, userSquares, true);
+    createGrid(enemyBoard, enemySquares, false);
 }
 
 function sleep(ms) {
@@ -65,12 +69,9 @@ async function cpuTurn() {
 }
 
 function updateBoard(boardName, hitResult, selectedRow, selectedCol) {
-    let selectedButton = null;
-    if (boardName === "enemy") {
-        selectedButton = enemyBoard.querySelector(`[data-row-index="${selectedRow}"][data-col-index="${selectedCol}"]`);
-    } else {
-        selectedButton = userBoard.querySelector(`[data-row-index="${selectedRow}"][data-col-index="${selectedCol}"]`);
-    }
+    const targetArray = boardName === "enemy" ? enemySquares : userSquares;
+    const selectedButton = targetArray[selectedRow][selectedCol]; 
+    
     if (hitResult) {
         selectedButton.classList.add("hit");
     } else {
